@@ -1,0 +1,21 @@
+{
+  "name": "myblog-ssg",
+  "version": "0.1.0",
+  "private": true,
+  "description": "간단한 마크다운 기반 정적 블로그 생성기",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "clean": "rimraf dist",
+    "preview": "npx serve dist"
+  },
+  "type": "module",
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0",
+    "markdown-it-prism": "^2.3.0"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.10"
+  }
+}
