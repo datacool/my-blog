@@ -9,6 +9,7 @@ const rootDir = path.resolve(process.cwd());
 const contentDir = path.join(rootDir, "content");
 const distDir = path.join(rootDir, "dist");
 const publicDir = path.join(rootDir, "public");
+const basePath = process.env.BASE_PATH || "";
 
 const md = new MarkdownIt({
   html: true,
@@ -95,7 +96,7 @@ const build = () => {
     const month = String(date.getMonth() + 1).padStart(2, "0");
 
     const slug = data.slug || slugify(parsed.name);
-    const url = `/blog/${year}/${month}/${slug}/`;
+    const url = `${basePath}/blog/${year}/${month}/${slug}/`;
 
     const tags = Array.isArray(data.tags)
       ? data.tags.map(String)
@@ -140,10 +141,10 @@ const build = () => {
   }
 
   const renderPage = (title, body, layout = "base") => {
-    const tpl = baseTemplate.replace("{{title}}", title).replace(
-      "{{content}}",
-      body,
-    );
+    const tpl = baseTemplate
+      .replace(/{{base}}/g, basePath)
+      .replace("{{title}}", title)
+      .replace("{{content}}", body);
     return tpl;
   };
 
@@ -155,7 +156,9 @@ const build = () => {
       .replace("{{category}}", post.category)
       .replace(
         "{{tags}}",
-        post.tags.map((t) => `<a href="/tags/${slugify(t)}/">${t}</a>`).join(
+        post.tags.map((t) =>
+          `<a href="${basePath}/tags/${slugify(t)}/">${t}</a>`
+        ).join(
           ", ",
         ) || "No tags",
       )
@@ -194,7 +197,7 @@ const build = () => {
       .join("\n");
 
     const heroImage = isHome
-      ? '<div class="hero-image"><img src="/logo.jpg" alt="Blog Hero" /></div>'
+      ? `<div class="hero-image"><img src="${basePath}/logo.jpg" alt="Blog Hero" /></div>`
       : "";
 
     const body = listTemplate
