@@ -15,7 +15,7 @@ const md = new MarkdownIt({
   html: true,
   linkify: true,
   typographer: true,
-}).use(mdAnchor, { permalink: mdAnchor.permalink.ariaHidden() }).use(mdPrism);
+}).use(mdAnchor, { permalink: false }).use(mdPrism);
 
 const walkMarkdownFiles = (dir) => {
   const result = [];
