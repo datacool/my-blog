@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "ai-news-briefing-automation",
+    "title": "AI 뉴스 브리핑 자동화 — Claude Cowork로 카카오톡까지 한 번에",
+    "date": "2026-06-05",
+    "summary": "뉴스 수집부터 포맷 문서 생성, Google Drive 업로드, 카카오톡 자동 발송까지 — Claude Cowork, Desktop Commander, Claude in Chrome을 조합해 AI 뉴스 브리핑 파이프라인을 구축한 과정과 시행착오를 기록합니다."
+  },
+  {
+    "slug": "today-i-learned",
+    "title": "오늘 배운것",
+    "date": "2026-06-05",
+    "summary": "클로드 코드로 블로그를 만들면서 익힌 HTML·CSS·JavaScript의 역할과 VS Code에서 웹 페이지를 미리보기하는 방법을 정리했습니다."
+  },
+  {
+    "slug": "hello-world",
+    "title": "Hello World",
+    "date": "2026-06-05",
+    "summary": "첫 번째 블로그 글입니다. 마크다운 블로그 시스템을 소개합니다."
+  },
+  {
+    "slug": "getting-started",
+    "title": "마크다운으로 글 쓰기",
+    "date": "2026-06-04",
+    "summary": "마크다운 문법을 활용해 블로그 글을 작성하는 방법과 지원하는 요소들을 알아봅니다."
+  }
+]

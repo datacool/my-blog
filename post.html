@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Blog</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="site-title">My Blog</a>
+      <button id="theme-toggle" aria-label="다크 모드로 전환">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <a href="index.html" class="back-link">← 목록으로</a>
+    <article id="post-content"></article>
+  </main>
+
+  <footer>
+    <p>© 2026 My Blog</p>
+  </footer>
+
+  <script src="marked.min.js"></script>
+  <script src="highlight.min.js"></script>
+  <script src="post.js"></script>
+</body>
+</html>
