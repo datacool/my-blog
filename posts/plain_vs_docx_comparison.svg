@@ -1,0 +1,116 @@
+<svg viewBox="0 0 820 980" xmlns="http://www.w3.org/2000/svg" font-family="'Malgun Gothic',Arial,sans-serif">
+  <title>Plain Text vs docx 발송 프로세스 비교</title>
+
+  <rect width="820" height="980" fill="#f8f9fa" rx="12"/>
+
+  <rect x="20" y="16" width="780" height="44" rx="8" fill="#1B2B5E"/>
+  <text x="410" y="44" text-anchor="middle" font-size="15" font-weight="bold" fill="white">Plain Text vs docx(포맷) 발송 — 프로세스 전체 비교</text>
+
+  <rect x="20" y="72" width="380" height="36" rx="6" fill="#2D7D46"/>
+  <text x="210" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="white">✅ Plain Text 방식 (현재 작동)</text>
+  <rect x="420" y="72" width="380" height="36" rx="6" fill="#8B2020"/>
+  <text x="610" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="white">⚠️ docx 포맷 방식 (현재 불안정)</text>
+
+  <text x="410" y="132" text-anchor="middle" font-size="11" fill="#666" font-weight="bold">① 문서 생성</text>
+  <line x1="20" y1="138" x2="800" y2="138" stroke="#ddd" stroke-width="1"/>
+
+  <rect x="30" y="144" width="360" height="64" rx="6" fill="white" stroke="#2D7D46" stroke-width="1.5"/>
+  <text x="210" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D7D46">Claude가 텍스트 직접 작성</text>
+  <text x="210" y="179" text-anchor="middle" font-size="11" fill="#333">뉴스 수집 → 마크다운/텍스트로 브리핑 작성</text>
+  <text x="210" y="196" text-anchor="middle" font-size="11" fill="#666">포맷 없음 / 즉시 완성</text>
+
+  <rect x="430" y="144" width="360" height="64" rx="6" fill="white" stroke="#8B2020" stroke-width="1.5"/>
+  <text x="610" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#8B2020">Node.js docx 라이브러리로 파일 생성</text>
+  <text x="610" y="179" text-anchor="middle" font-size="11" fill="#333">Navy 헤더 + 컬러 테이블 + 섹션 구조</text>
+  <text x="610" y="196" text-anchor="middle" font-size="11" fill="#2D7D46">✓ 이 단계는 정상 (Word에서 완벽 렌더링)</text>
+
+  <text x="50" y="226" font-size="18" fill="#2D7D46">↓</text>
+  <text x="450" y="226" font-size="18" fill="#8B2020">↓</text>
+
+  <text x="410" y="242" text-anchor="middle" font-size="11" fill="#666" font-weight="bold">② Google Drive 업로드</text>
+  <line x1="20" y1="248" x2="800" y2="248" stroke="#ddd" stroke-width="1"/>
+
+  <rect x="30" y="254" width="360" height="80" rx="6" fill="white" stroke="#2D7D46" stroke-width="1.5"/>
+  <text x="210" y="273" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D7D46">Drive MCP → text/plain 업로드</text>
+  <text x="210" y="290" text-anchor="middle" font-size="11" fill="#333">contentMimeType: "text/plain"</text>
+  <text x="210" y="306" text-anchor="middle" font-size="11" fill="#333">Drive가 자동으로 Google Docs로 변환</text>
+  <text x="210" y="322" text-anchor="middle" font-size="11" fill="#2D7D46">✓ mimeType: google.apps.document 확정</text>
+
+  <rect x="430" y="254" width="360" height="80" rx="6" fill="white" stroke="#8B2020" stroke-width="1.5"/>
+  <text x="610" y="273" text-anchor="middle" font-size="12" font-weight="bold" fill="#8B2020">Drive MCP → base64 docx 업로드</text>
+  <text x="610" y="290" text-anchor="middle" font-size="11" fill="#333">contentMimeType: "application/...docx"</text>
+  <text x="610" y="306" text-anchor="middle" font-size="11" fill="#CC6600">⚠️ Drive가 docx를 Docs로 변환 안 함</text>
+  <text x="610" y="322" text-anchor="middle" font-size="11" fill="#8B2020">✗ mimeType: docx 그대로 저장됨</text>
+
+  <rect x="430" y="340" width="360" height="56" rx="5" fill="#FFF3CD" stroke="#CC6600" stroke-width="1.5"/>
+  <text x="610" y="357" text-anchor="middle" font-size="11" font-weight="bold" fill="#CC6600">🔑 핵심 이슈</text>
+  <text x="610" y="374" text-anchor="middle" font-size="11" fill="#333">Drive MCP는 text/plain → Docs 변환만 지원</text>
+  <text x="610" y="388" text-anchor="middle" font-size="11" fill="#333">docx → Docs 변환 옵션이 MCP에 없음</text>
+
+  <text x="50" y="360" font-size="18" fill="#2D7D46">↓</text>
+  <text x="450" y="406" font-size="18" fill="#8B2020">↓</text>
+
+  <text x="410" y="422" text-anchor="middle" font-size="11" fill="#666" font-weight="bold">③ Google Docs URL 확보</text>
+  <line x1="20" y1="428" x2="800" y2="428" stroke="#ddd" stroke-width="1"/>
+
+  <rect x="30" y="434" width="360" height="72" rx="6" fill="white" stroke="#2D7D46" stroke-width="1.5"/>
+  <text x="210" y="453" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D7D46">즉시 docs.google.com URL 생성</text>
+  <text x="210" y="470" text-anchor="middle" font-size="11" fill="#333">업로드와 동시에 Docs URL 확보</text>
+  <text x="210" y="486" text-anchor="middle" font-size="11" fill="#333">docs.google.com/document/d/{ID}/edit</text>
+  <text x="210" y="500" text-anchor="middle" font-size="11" fill="#2D7D46">✓ 100% 안정적</text>
+
+  <rect x="430" y="434" width="360" height="72" rx="6" fill="white" stroke="#8B2020" stroke-width="1.5"/>
+  <text x="610" y="453" text-anchor="middle" font-size="12" font-weight="bold" fill="#8B2020">Chrome으로 수동 변환 필요</text>
+  <text x="610" y="470" text-anchor="middle" font-size="11" fill="#333">Drive 파일 열기 → "Google 문서로 열기" 클릭</text>
+  <text x="610" y="486" text-anchor="middle" font-size="11" fill="#CC6600">⚠️ Drive 미리보기 로딩 여부에 의존</text>
+  <text x="610" y="500" text-anchor="middle" font-size="11" fill="#8B2020">✗ 불안정 (6/5 성공, 6/6 실패)</text>
+
+  <text x="50" y="524" font-size="18" fill="#2D7D46">↓</text>
+  <text x="450" y="524" font-size="18" fill="#8B2020">↓</text>
+
+  <text x="410" y="540" text-anchor="middle" font-size="11" fill="#666" font-weight="bold">④ 카카오톡 발송 결과</text>
+  <line x1="20" y1="546" x2="800" y2="546" stroke="#ddd" stroke-width="1"/>
+
+  <rect x="30" y="552" width="360" height="72" rx="6" fill="#E8F5E9" stroke="#2D7D46" stroke-width="1.5"/>
+  <text x="210" y="571" text-anchor="middle" font-size="12" font-weight="bold" fill="#2D7D46">링크 클릭 → Google Docs 바로 열림</text>
+  <text x="210" y="588" text-anchor="middle" font-size="11" fill="#333">텍스트 포맷 (헤더/테이블 없음)</text>
+  <text x="210" y="604" text-anchor="middle" font-size="11" fill="#333">내용은 완전하고 접근 가능</text>
+  <text x="210" y="620" text-anchor="middle" font-size="11" fill="#2D7D46">✓ 항상 성공</text>
+
+  <rect x="430" y="552" width="360" height="72" rx="6" fill="#FFEBEE" stroke="#8B2020" stroke-width="1.5"/>
+  <text x="610" y="571" text-anchor="middle" font-size="12" font-weight="bold" fill="#8B2020">링크 클릭 → "파일을 열 수 없습니다"</text>
+  <text x="610" y="588" text-anchor="middle" font-size="11" fill="#333">Navy 헤더 + 컬러 테이블 포맷</text>
+  <text x="610" y="604" text-anchor="middle" font-size="11" fill="#333">(성공 시 완성도 높음)</text>
+  <text x="610" y="620" text-anchor="middle" font-size="11" fill="#8B2020">✗ Chrome 변환 실패 시 접근 불가</text>
+
+  <rect x="20" y="642" width="780" height="2" fill="#ddd"/>
+  <text x="410" y="662" text-anchor="middle" font-size="13" font-weight="bold" fill="#222">근본 원인 요약</text>
+
+  <rect x="30" y="672" width="760" height="96" rx="8" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="50" y="694" font-size="12" font-weight="bold" fill="#1B2B5E">Drive MCP의 제약</text>
+  <text x="50" y="712" font-size="11" fill="#333">• text/plain → Google Docs 자동 변환 ✅ (Drive API가 기본 지원)</text>
+  <text x="50" y="728" font-size="11" fill="#333">• docx → Google Docs 변환 ❌ (MCP 도구에 목적지 mimeType 지정 옵션 없음)</text>
+  <text x="50" y="744" font-size="11" fill="#333">• docx는 Drive에 바이너리 파일로만 저장됨 → docs.google.com URL이 작동 안 함</text>
+  <text x="50" y="760" font-size="11" fill="#CC6600">• Chrome으로 수동 변환은 Drive 미리보기 로딩에 의존 → 불안정</text>
+
+  <text x="410" y="792" text-anchor="middle" font-size="13" font-weight="bold" fill="#222">해결책</text>
+
+  <rect x="30" y="800" width="360" height="88" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5"/>
+  <text x="210" y="820" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565C0">단기 (현재)</text>
+  <text x="210" y="838" text-anchor="middle" font-size="11" fill="#333">text/plain → Google Docs (포맷 없음)</text>
+  <text x="210" y="854" text-anchor="middle" font-size="11" fill="#333">docx는 로컬 파일로만 보관</text>
+  <text x="210" y="870" text-anchor="middle" font-size="11" fill="#555">카카오 링크는 항상 정상 작동</text>
+  <text x="210" y="886" text-anchor="middle" font-size="11" fill="#1565C0">안정성 ★★★★★ / 포맷 ★☆☆☆☆</text>
+
+  <rect x="430" y="800" width="360" height="88" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5"/>
+  <text x="610" y="820" text-anchor="middle" font-size="12" font-weight="bold" fill="#2E7D32">장기 (개선 방향)</text>
+  <text x="610" y="838" text-anchor="middle" font-size="11" fill="#333">Google Docs API 직접 호출로 포맷 적용</text>
+  <text x="610" y="854" text-anchor="middle" font-size="11" fill="#333">또는 Drive API에서 mimeType 변환 지정</text>
+  <text x="610" y="870" text-anchor="middle" font-size="11" fill="#555">(OAuth 설정 필요 / 구현 복잡도 높음)</text>
+  <text x="610" y="886" text-anchor="middle" font-size="11" fill="#2E7D32">안정성 ★★★★★ / 포맷 ★★★★★</text>
+
+  <rect x="20" y="900" width="780" height="60" rx="8" fill="#FFF3CD" stroke="#F57F17" stroke-width="1.5"/>
+  <text x="410" y="921" text-anchor="middle" font-size="12" font-weight="bold" fill="#E65100">💡 결론</text>
+  <text x="410" y="939" text-anchor="middle" font-size="11" fill="#333">현재 카카오 발송 링크 문서 = Plain Text 방식만 안정적으로 동작</text>
+  <text x="410" y="955" text-anchor="middle" font-size="11" fill="#333">docx 포맷 문서는 Word에서만 완벽 — Google Docs 공유 링크용으로는 미완성 상태</text>
+</svg>
