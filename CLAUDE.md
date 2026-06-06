@@ -1,103 +1,24 @@
-# My Blog — Claude Code Guide
+## 프로젝트 개요
+- 마크다운 기반 블로그 + 미니 웹앱 포트폴리오, HTML, CSS, JavaScript만 사용
 
-## Project Overview
+## 작업 사이클
+사용자가 웹앱 주제를 요청하면 다음 순서로 진행한다
 
-A static blog that reads local Markdown files and renders them as a clean, readable website. No build tools, no frameworks — pure HTML, CSS, and JavaScript only.
+1. **Plan** : 서브 에이전트를 만들어 계획을 작성한다. 어떤 웹앱을 만들지, 파일 구조는 어떻게 할지 정리한다. 작성한 계획은 spec.md로 저장하며, 사용자 승인을 받는다.
+2. **Build** : 서브 에이전트를 만들어 구현한다. 웹앱은 /apps/(앱이름)/ 폴더에 독립적으로 만든다. 블로그의 다른 파일을 건드리지 않는다.
+3. **Review** : 별도 서브 에이전트를 만들어 검증한다. 브라우저에서 정상 동작하는지, 코드에 문제가 없는지 확인하고 review.md를 작성한다. 문제가 있으면 수정한다.
+4. **Embed** : 블로그 메인 페이지(index.html)에 웹앱 카드를 추가한다. 카드에는 제목, 설명, 미리보기 이미지 또는 iframe을 넣는다. 깃 커밋한다.
 
-## Architecture
+## 서브 에이전트 규칙
+- 서브 에이전트에게 작업을 넘길 때 전용 지침 파일(.md)을 미리 만들어 전달한다.
+- Build 서브 에이전트와 Review 서브 에이전트는 반드시 분리한다.
+- 서브 에이전트는 지침 파일에 명시된 범위만 수정한다.
 
-```
-my-blog/
-├── index.html          # Home page — lists all posts
-├── post.html           # Single post viewer
-├── style.css           # All styles (light + dark mode)
-├── app.js              # Post list logic (fetches posts/index.json)
-├── post.js             # Single post logic (fetches + renders Markdown)
-├── marked.min.js       # Markdown parser (vendored, no CDN)
-└── posts/
-    ├── index.json      # Post manifest [{ slug, title, date, summary }]
-    └── *.md            # Post content files
-```
+## 웹앱 규칙
+- 모든 웹앱은 /apps/(앱이름)/ 폴더 안에 자체완결된다.
+- 외부 라이브러리 사용을 최소화한다. CDN은 허용한다.
+- 모바일에서도 사용할 수 있어야 한다.
 
-Navigation: `index.html` links to `post.html?slug=<slug>`. `post.js` reads the `slug` query param, fetches `posts/<slug>.md`, and renders it via `marked`.
-
-## Design Constraints
-
-- **No frameworks.** No React, Vue, Next.js, Tailwind, Bootstrap, or bundlers.
-- **No CDN.** Vendor all third-party scripts (e.g., `marked.min.js`) locally.
-- **Pure static.** Everything works when served from any static file server or opened via `file://`.
-- Markdown rendering: use [marked.js](https://marked.js.org/) (vendored).
-
-## Design Goals
-
-| Goal | Implementation |
-|------|---------------|
-| Clean, readable typography | System font stack, comfortable line-height (~1.7), max-width ~720px |
-| Dark mode | CSS `prefers-color-scheme` media query + `data-theme` toggle on `<html>` |
-| Mobile-friendly | Fluid layout, no fixed widths, touch-friendly tap targets (≥44px) |
-| Fast | No network requests beyond post `.md` files |
-
-## CSS Conventions
-
-- Use CSS custom properties (`--color-bg`, `--color-text`, `--color-accent`, etc.) for all theme values.
-- Light mode values are set on `:root`; dark mode overrides inside `@media (prefers-color-scheme: dark)` AND when `html[data-theme="dark"]` (manual toggle).
-- A single `<button id="theme-toggle">` in the header switches themes and persists the choice in `localStorage`.
-- Breakpoint: `@media (max-width: 640px)` for mobile adjustments.
-
-## CSS Custom Properties (reference)
-
-```css
-:root {
-  --color-bg: #ffffff;
-  --color-surface: #f5f5f5;
-  --color-text: #1a1a1a;
-  --color-text-muted: #666666;
-  --color-accent: #2563eb;
-  --color-border: #e5e5e5;
-  --color-code-bg: #f3f4f6;
-  --font-body: system-ui, -apple-system, sans-serif;
-  --font-mono: ui-monospace, monospace;
-  --max-width: 720px;
-}
-```
-
-## posts/index.json Format
-
-```json
-[
-  {
-    "slug": "hello-world",
-    "title": "Hello World",
-    "date": "2026-06-05",
-    "summary": "My first post."
-  }
-]
-```
-
-`slug` must match the filename: `posts/hello-world.md`.
-
-## Key Behaviors
-
-- **Theme toggle**: reads `localStorage.getItem('theme')` on page load; applies `data-theme` attribute to `<html>`; updates on button click.
-- **404 handling**: if a `.md` fetch fails (404), show a friendly "Post not found" message instead of a blank page.
-- **Date formatting**: display dates in a human-readable format (e.g., "June 5, 2026") using `Intl.DateTimeFormat`.
-- **Page title**: set `document.title` dynamically to the post title on post pages.
-
-## Commands
-
-```bash
-# Serve locally (Python)
-python -m http.server 8080
-
-# Serve locally (Node)
-npx serve .
-```
-
-No build step needed. Edit files and refresh the browser.
-
-## Non-Goals
-
-- No search, tags, categories, or pagination in v1.
-- No comments system.
-- No RSS feed.
-- No server-side rendering.
+## 규칙
+- 승인 없이 구현을 시작하지 않는다.
+- 막히면 사용자에게 알린다.
